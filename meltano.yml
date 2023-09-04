@@ -20,5 +20,3 @@ jobs:
   # Update this section to include any EL jobs or other
   # commands that you'd like to run:
   - tap-gitlab target-snowflake
-  - dbt-snowflake:run
-  - dbt-snowflake:test
