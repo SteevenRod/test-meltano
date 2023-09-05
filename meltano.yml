@@ -11,12 +11,12 @@ plugins:
     variant: meltanolabs
     pip_url: git+https://github.com/MeltanoLabs/tap-github.git
 schedules:
-- name: daily-refresh
+  - name: daily-refresh
   job: daily-refresh-job
   interval: '@daily'  # Can be @daily, @hourly, etc., or a cron-based interval
 jobs:
-- name: daily-refresh-job
-  tasks:
-  # Update this section to include any EL jobs or other
-  # commands that you'd like to run:
-  - tap-gitlab target-snowflake
+  - name: daily-refresh-job
+    tasks:
+    # Update this section to include any EL jobs or other
+    # commands that you'd like to run:
+    - tap-gitlab target-snowflake
