@@ -7,16 +7,22 @@ environments:
 - name: prod
 plugins:
   extractors:
-  - name: tap-github
-    variant: meltanolabs
-    pip_url: git+https://github.com/MeltanoLabs/tap-github.git
-schedules:
-  - name: daily-refresh
-  job: daily-refresh-job
-  interval: '@daily'  # Can be @daily, @hourly, etc., or a cron-based interval
+  - name: tap-smoke-test
+    variant: meltano
+    pip_url: git+https://github.com/meltano/tap-smoke-test.git
+    config:
+      streams:
+      - stream_name: animals
+        input_filename: https://raw.githubusercontent.com/meltano/tap-smoke-test/main/demo-data/animals-data.jsonl
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
 jobs:
-  - name: daily-refresh-job
-    tasks:
-    # Update this section to include any EL jobs or other
-    # commands that you'd like to run:
-    - tap-gitlab target-snowflake
+- name: sample_job
+  tasks:
+  - tap-smoke-test target-jsonl
+schedules:
+- name: sample_schedule
+  interval: 0 0 * * *
+  job: sample_job
